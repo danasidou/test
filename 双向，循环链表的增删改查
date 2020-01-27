@@ -1,0 +1,182 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct ysf
+{
+	struct ysf* prev;
+	int a;
+	struct ysf* next;
+}Y;
+int main()
+{
+	int m, n;
+	int k;
+	printf("请输入链表长度与数据\n");
+	scanf_s("%d", &n);
+	Y* head = NULL;
+	Y* p, * q, * s;
+	head = p = (Y*)malloc(sizeof(Y));
+	head->prev = NULL;
+	for (int i = 0; i < n; i++)
+	{
+		q = (Y*)malloc(sizeof(Y));
+		scanf_s("%d", &q->a);
+		p->next = q;
+		s = p;
+		p = q;
+		p->prev = s;
+		p->next = NULL;
+	}
+	p->next = head->next;
+	head->next->prev = p;
+    m=1;
+	while (m == 1 || m == 2 || m == 3 || m == 4)
+	{
+		printf("增删查改对应 1 2 3 4\n");
+		scanf_s("%d", &m);
+		if (m == 1)
+		{
+			printf("请输入节点\n");
+			int z;
+			scanf_s("%d", &z);
+			if (z >= 0 && z <= n)
+			{
+				;
+			}
+			else
+			{
+				break;
+			}
+			if (z != 0)
+			{
+				p = head->next;
+				for (int i = 1; i < z; i++)
+				{
+					p = p->next;
+				}
+				q = (Y*)malloc(sizeof(Y));
+				printf("输入值\n");
+				scanf_s("%d", &q->a);
+				s = p->next;
+				p->next = q;
+				q->prev = p;
+				q->next = s;
+				s->prev = q;
+				n++;
+				p = head->next;
+				for (int i = 0; i < n; i++)
+				{
+					printf("%3d", p->a);
+					p = p->next;
+				}
+				printf("\n");
+			}
+			else if(z == 0)
+			{
+				q = (Y*)malloc(sizeof(Y));
+				printf("输入值\n");
+				scanf_s("%d", &q->a);
+				p = head->next;
+				n++;
+				s = p->prev;
+				head->next = q;
+				q->prev = s;
+				s->next = q;
+				q->next = p;
+				p->prev = q;
+				p = head->next;
+				for (int i = 0; i < n; i++)
+				{
+					printf("%3d", p->a);
+					p = p->next;
+				}
+				printf("\n");
+			}
+		}
+		else if (m == 2)
+		{
+			printf("请输入节点\n");
+			int z;
+			scanf_s("%d", &z);
+			if (z >= 1 && z <= n)
+			{
+				;
+			}
+			else
+			{
+				break;
+			}
+			p = head->next;
+			for (int i = 1; i < z; i++)
+			{
+				p = p->next;
+			}
+			q = p;
+			q->prev->next = q->next;
+			q->next->prev = q->prev;
+			p = p->next;
+			free(q);
+			n--;
+			for (int i = 0; i < n; i++)
+			{
+				printf("%3d", p->a);
+				p = p->next;
+			}
+			printf("\n");
+		}
+		else if (m == 3)
+		{
+			printf("请输入值\n");
+			int z;
+			int x = 1;
+			scanf_s("%d", &z);
+			p = head->next;
+			for (int i = 0; i < n; i++)
+			{
+				if (p->a == z)
+				{
+					printf("%d节点\n",i+1);
+					x = 0;
+				}
+				p = p->next;
+			}
+			if (x != 0)
+			{
+				printf("无此值\n");
+			}
+		}
+		else if (m == 4)
+		{
+			printf("请输入节点\n");
+			int z;
+			scanf_s("%d", &z);
+			if (z >= 1 && z <= n)
+			{
+				;
+			}
+			else
+			{
+				break;
+			}
+			p = head->next;
+			for (int i = 1; i < z; i++)
+			{
+				p = p->next;
+			}
+			printf("节点值为:%d\n", p->a);
+			printf("请输入值\n");
+			scanf_s("%d", &p->a);
+			p = head->next;
+			for (int i = 0; i < n; i++)
+			{
+				printf("%3d", p->a);
+				p = p->next;
+			}
+			printf("\n");
+		}
+		else
+		{
+		break;
+        }	
+	}
+	return 0;
+}
